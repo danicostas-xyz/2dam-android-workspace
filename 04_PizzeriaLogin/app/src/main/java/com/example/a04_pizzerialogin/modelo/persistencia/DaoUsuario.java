@@ -22,9 +22,11 @@ public class DaoUsuario {
         Usuario u = null;
 
         for (Usuario user : lista) {
+
             if (user.getNombre().equals(nombre)) {
                 u = user;
             }
+
         }
 
         return u;

@@ -19,9 +19,11 @@ public class GestorPizza {
             case PEQUENA:
                 resultado = 5;
                 break;
+            case UNDEFINED:
+                resultado = 0;
         }
 
-        if (pizza.getListaIngredientes().size() != 0) {
+        if (!pizza.getListaIngredientes().isEmpty()) {
             for (String s : pizza.getListaIngredientes()) {
                 resultado += 2;
             }

@@ -18,32 +18,29 @@ public class GestorUsuario {
     public int validarUsuario(Usuario us) {
 
         DaoUsuario dao = new DaoUsuario();
-        DaoUsuario.meterUsuariosEnLista();
 
-
-        if (us.equals(dao.getByName(us.getNombre()))){
-            return 1;
-        } else return 0;
-
-
-//          Este no funciona porque getByName recorre el array, y si no existe es null.getNombre
-//        if (us.getNombre().equals(dao.getByName(us.getNombre()).getNombre())) {
-//            if (us.getPass().equals(dao.getByName(us.getNombre()).getPass())) {
-//                return 2;
-//            }
+//        if (us.equals(dao.getByName(us.getNombre()))){
+//            // El método equals está sobreescrito para que de true si nombre y pass coinciden
 //            return 1;
-//        }
-//        return 0;
+//        } else return 0;
+
+        if (dao.getByName(us.getNombre()) != null) {
+            if (us.getNombre().equals(dao.getByName(us.getNombre()).getNombre())) {
+                if (us.getPass().equals(dao.getByName(us.getNombre()).getPass())) {
+                    return 2; // Existe y contraseña correcta
+                }
+                return 1; // Existe pero contraseña incorrecta
+            }
+        }
+        return 0; // == Null -> No existe
     }
 
     public Usuario getByName(String nombre) {
         DaoUsuario dao = new DaoUsuario();
-        Usuario u = dao.getByName(nombre);
-        return u;
+        return dao.getByName(nombre);
     }
 
     public void addPizzaUsuario(Usuario us, Pizza pz) {
-
         us.setPizza(pz);
     }
 }

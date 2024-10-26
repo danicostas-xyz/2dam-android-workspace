@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/txVw1"
+        android:id="@+id/txVwNombreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.541" />
 
     <TextView
-        android:id="@+id/txVw2"
+        android:id="@+id/txVwDireccionUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txVw3"
+        android:id="@+id/txVwTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Domino's Pizza"
@@ -89,7 +89,7 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupTamanosPizza"
         android:layout_width="344dp"
         android:layout_height="48dp"
         android:gravity="center"
@@ -107,7 +107,7 @@
             android:text="Grande" />
 
         <RadioButton
-            android:id="@+id/rBt1"
+            android:id="@+id/rBtGrande"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -118,7 +118,7 @@
             android:text="Mediana" />
 
         <RadioButton
-            android:id="@+id/rBt2"
+            android:id="@+id/rBtMediana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -129,7 +129,7 @@
             android:text="Pequeña" />
 
         <RadioButton
-            android:id="@+id/rBt3"
+            android:id="@+id/rBtPequena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -164,14 +164,14 @@
         app:layout_constraintGuide_begin="715dp" />
 
     <CheckBox
-        android:id="@+id/chBx1"
+        android:id="@+id/chBxJamon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="304dp"
         android:text="Jamón"
-        app:layout_constraintEnd_toStartOf="@+id/chBx4"
+        app:layout_constraintEnd_toStartOf="@+id/chBxBacon"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chBx2"
+        app:layout_constraintStart_toEndOf="@+id/chBxAceitunas"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -182,40 +182,40 @@
         app:layout_constraintGuide_begin="200dp" />
 
     <CheckBox
-        android:id="@+id/chBx3"
+        android:id="@+id/chBxPepperoni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="304dp"
         android:text="Pepperoni"
-        app:layout_constraintEnd_toStartOf="@+id/chBx2"
+        app:layout_constraintEnd_toStartOf="@+id/chBxAceitunas"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/chBx2"
+        android:id="@+id/chBxAceitunas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="304dp"
         android:text="Aceitunas"
-        app:layout_constraintEnd_toStartOf="@+id/chBx1"
+        app:layout_constraintEnd_toStartOf="@+id/chBxJamon"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chBx3"
+        app:layout_constraintStart_toEndOf="@+id/chBxPepperoni"
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/chBx4"
+        android:id="@+id/chBxBacon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="304dp"
         android:text="Bacon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chBx1"
+        app:layout_constraintStart_toEndOf="@+id/chBxJamon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bt2"
+        android:id="@+id/btHacerPedido"
         android:layout_width="233dp"
         android:layout_height="54dp"
         android:layout_marginBottom="72dp"

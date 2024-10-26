@@ -55,9 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
             switch (resultado) {
                 case 0:
-                    showAlert2();
+                    showAlert();
                     break;
                 case 1:
+                    showAlert2();
+                    break;
+                case 2:
                     intent.putExtra(K_USER, gu.getByName(us.getNombre()));
                     startActivity(intent);
                     break;
