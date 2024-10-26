@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">03_Pizzeria</string>
+    <string name="dominosName">Domino\'s Pizza</string>
+    <string name="user">Daniel Costas</string>
+    <string name="address">Ferroka 35</string>
+</resources>
