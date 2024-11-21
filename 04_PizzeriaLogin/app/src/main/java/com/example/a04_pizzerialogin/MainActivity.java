@@ -3,6 +3,7 @@ package com.example.a04_pizzerialogin;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +14,16 @@ import com.example.a04_pizzerialogin.modelo.persistencia.DaoUsuario;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
 //    public final static String K_USERNAME = "nombre";
 //    public final static String K_PASSWORD = "pass";
     public final static String K_USER = "usuario";
+
+    private final String MENSAJE_ALERTA = "MENSAJE_ALERTA";
+    private String mensajeAlerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
         EditText edText1 = findViewById(R.id.edText1);
         EditText edText2 = findViewById(R.id.edText2);
         Button bt1 = findViewById(R.id.bt1);
+        TextView tvAlert = findViewById(R.id.tvAlerta);
 
+
+        if (savedInstanceState != null) {
+            mensajeAlerta = savedInstanceState.getString(MENSAJE_ALERTA);
+            tvAlert.setText(mensajeAlerta);
+        }
 
         /* bt1.setOnClickListener(v -> {
             String nombre = edText1.getText().toString();
@@ -55,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
             switch (resultado) {
                 case 0:
-                    showAlert();
+                    mensajeAlerta = "El usuario no existe";
+                    tvAlert.setText(mensajeAlerta);
                     break;
                 case 1:
-                    showAlert2();
+                    mensajeAlerta = "Usuario y/o contraseña incorrectos";
+                    tvAlert.setText(mensajeAlerta);
                     break;
                 case 2:
                     intent.putExtra(K_USER, gu.getByName(us.getNombre()));
@@ -68,43 +81,51 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showAlert2() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("Usuario y/o contraseña incorrectos");
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        // Botón OK
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Código que se ejecuta al hacer clic en OK
-                dialog.dismiss();  // Cerrar la alerta
-            }
-        });
-
-        // Mostrar la alerta
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        Log.d("MainActivity", "onSaveInstanceState()");
+        outState.putString("MENSAJE_ALERTA", mensajeAlerta);
     }
 
+//    private void showAlert2() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Error");
+//        builder.setMessage("Usuario y/o contraseña incorrectos");
+//
+//        // Botón OK
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                // Código que se ejecuta al hacer clic en OK
+//                dialog.dismiss();  // Cerrar la alerta
+//            }
+//        });
+//
+//        // Mostrar la alerta
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 
-    private void showAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("El usuario no existe");
 
-        // Botón OK
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Código que se ejecuta al hacer clic en OK
-                dialog.dismiss();  // Cerrar la alerta
-            }
-        });
-
-        // Mostrar la alerta
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    private void showAlert() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Error");
+//        builder.setMessage("El usuario no existe");
+//
+//        // Botón OK
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                // Código que se ejecuta al hacer clic en OK
+//                dialog.dismiss();  // Cerrar la alerta
+//            }
+//        });
+//
+//        // Mostrar la alerta
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 
 }
