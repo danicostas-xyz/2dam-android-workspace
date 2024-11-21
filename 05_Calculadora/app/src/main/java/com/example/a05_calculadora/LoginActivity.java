@@ -36,9 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validarUsuario(String u) {
-        if (u.isBlank()) {
+        /*if (u.isBlank()) {
             return false;
-        }
+        }*/
         return true;
     }
 }
