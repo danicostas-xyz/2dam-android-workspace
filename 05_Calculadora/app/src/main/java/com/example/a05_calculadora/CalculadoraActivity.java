@@ -1,6 +1,7 @@
 package com.example.a05_calculadora;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +16,8 @@ public class CalculadoraActivity extends AppCompatActivity {
     StringBuilder inputUsuario = new StringBuilder();
     StringBuilder historico = new StringBuilder();
     double acumulacionCalculo;
-    double inputACalcular;
+    double inputACalcular1;
+    double inputACalcular2;
 
 
     @Override
@@ -53,7 +55,8 @@ public class CalculadoraActivity extends AppCompatActivity {
 
         View.OnClickListener commonListenerNumeros = view -> {
 
-            String s = historico.toString(); // Si no hago aquí el toString(), en la línea siguiente, si hago el equals() al StringBuilder original, no me entra por el if aunque sí que sea .equals("0")
+            String s = historico.toString(); // Si no hago aquí el toString(), en la línea siguiente,
+            // si hago el equals() al StringBuilder original, no me entra por el if aunque sí que sea .equals("0")
             if (s.equals("0")) {
                 historico.delete(0, 1);
             }
@@ -91,14 +94,21 @@ public class CalculadoraActivity extends AppCompatActivity {
             }
 
             s = historico.toString();
+
             if (s.length() >= 3) {
+                if(acumulacionCalculo == 0) {
+                    inputACalcular1 = Double.parseDouble(s.substring(0, -3));
+                }
+
                 char operador = s.charAt(s.length() - 2);
+                inputACalcular2 = s.charAt(s.length()-1);
                 if (operador == '+' || operador == '-' || operador == 'X' || operador == '/') {
-                    inputACalcular = Double.parseDouble(inputUsuario.toString());
-                    double resultado = calcular(operador, acumulacionCalculo, inputACalcular);
-                    acumulacionCalculo = resultado;
-                    inputUsuario.replace(0, inputUsuario.length()-1, String.valueOf(acumulacionCalculo));
-                    tvInputUsuario.setText(inputUsuario);
+                    double resultado;
+                    resultado = calcular(operador, inputACalcular1, inputACalcular2);
+                    acumulacionCalculo += resultado;
+                    inputUsuario.setLength(0);
+                    inputUsuario.append(acumulacionCalculo);
+                    tvInputUsuario.setText(String.valueOf(inputUsuario));
                 }
             }
 
@@ -139,8 +149,8 @@ public class CalculadoraActivity extends AppCompatActivity {
                     historico.append("/");
                 }
             }
-
-            tvHistorico.setText(historico.toString());
+            inputACalcular1 = Double.parseDouble(tvInputUsuario.getText().toString());
+            tvHistorico.setText(historico);
         };
 
         final Button[] arrayBotonesNumero = {
@@ -194,21 +204,30 @@ public class CalculadoraActivity extends AppCompatActivity {
         });
 
         btResultado.setOnClickListener(view -> {
-
-            char operador = (historico.charAt(historico.length()-1));
-            double resultado = calcular(operador, acumulacionCalculo, inputACalcular);
-
-            acumulacionCalculo = resultado;
+            String s = historico.toString();
+            char operador = s.charAt(s.length() - 2);
         });
 
-
+        btMasMenos.setOnClickListener(view -> {
+            double numero = Double.parseDouble(inputUsuario.toString());
+            if (numero > 0) {
+                inputUsuario.insert(0, '-');
+            } else {
+                inputUsuario.deleteCharAt(0);
+            }
+            tvInputUsuario.setText(inputUsuario);
+        });
     }
+
+
 
     private double calcular(char operador, double n1, double n2) {
 
-
         switch (operador) {
             case '+':
+                Log.wtf("N1", String.valueOf(n1));
+                Log.wtf("N2", String.valueOf(n2));
+
                 return calculadora.sumar(n1,n2);
             case '-':
                 return calculadora.restar(n1,n2);
@@ -217,8 +236,6 @@ public class CalculadoraActivity extends AppCompatActivity {
             case '/':
                 return calculadora.dividir(n1,n2);
         }
-
-
         return n1;
     }
 }
