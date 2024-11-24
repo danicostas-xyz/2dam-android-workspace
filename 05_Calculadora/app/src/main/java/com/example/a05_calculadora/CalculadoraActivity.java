@@ -14,10 +14,10 @@ public class CalculadoraActivity extends AppCompatActivity {
 
     ClaseCalculadora calculadora = ClaseCalculadora.getInstance();
     StringBuilder inputUsuario = new StringBuilder();
-    StringBuilder historico = new StringBuilder();
+    StringBuilder resultado = new StringBuilder();
     double acumulacionCalculo;
-    double inputACalcular1;
-    double inputACalcular2;
+    double inputACalcular;
+    boolean isNewNumber;
 
 
     @Override
@@ -29,8 +29,8 @@ public class CalculadoraActivity extends AppCompatActivity {
         final TextView tvUsuario = findViewById(R.id.tvUsuario);
         tvUsuario.setText(user);
 
-        final TextView tvInputUsuario = findViewById(R.id.tvResultado);
-        final TextView tvHistorico = findViewById(R.id.tvHistorico);
+        final TextView tvInputUsuario = findViewById(R.id.tvInputUsuario);
+        final TextView tvResultado = findViewById(R.id.tvResultado);
 
         final Button btC = findViewById(R.id.btC);
         final Button btBorrar = findViewById(R.id.btBorrar);
@@ -55,102 +55,88 @@ public class CalculadoraActivity extends AppCompatActivity {
 
         View.OnClickListener commonListenerNumeros = view -> {
 
-            String s = historico.toString(); // Si no hago aquí el toString(), en la línea siguiente,
+            String s = inputUsuario.toString(); // Si no hago aquí el toString(), en la línea siguiente,
             // si hago el equals() al StringBuilder original, no me entra por el if aunque sí que sea .equals("0")
+
             if (s.equals("0")) {
-                historico.delete(0, 1);
+                inputUsuario.delete(0, 1); // Para que me borre el 0 si hay 0 al principio
             }
 
             if (view.getId() == R.id.bt0) {
-                historico.append("0");
                 inputUsuario.append("0");
             } else if (view.getId() == R.id.bt1) {
-                historico.append("1");
                 inputUsuario.append("1");
             } else if (view.getId() == R.id.bt2) {
-                historico.append("2");
                 inputUsuario.append("2");
             } else if (view.getId() == R.id.bt3) {
-                historico.append("3");
                 inputUsuario.append("3");
             } else if (view.getId() == R.id.bt4) {
-                historico.append("4");
                 inputUsuario.append("4");
             } else if (view.getId() == R.id.bt5) {
-                historico.append("5");
                 inputUsuario.append("5");
             } else if (view.getId() == R.id.bt6) {
-                historico.append("6");
                 inputUsuario.append("6");
             } else if (view.getId() == R.id.bt7) {
-                historico.append("7");
                 inputUsuario.append("7");
             } else if (view.getId() == R.id.bt8) {
-                historico.append("8");
                 inputUsuario.append("8");
             } else if (view.getId() == R.id.bt9) {
-                historico.append("9");
                 inputUsuario.append("9");
             }
 
-            s = historico.toString();
+            s = inputUsuario.toString();
 
             if (s.length() >= 3) {
-                if(acumulacionCalculo == 0) {
-                    inputACalcular1 = Double.parseDouble(s.substring(0, -3));
-                }
 
                 char operador = s.charAt(s.length() - 2);
-                inputACalcular2 = s.charAt(s.length()-1);
                 if (operador == '+' || operador == '-' || operador == 'X' || operador == '/') {
-                    double resultado;
-                    resultado = calcular(operador, inputACalcular1, inputACalcular2);
-                    acumulacionCalculo += resultado;
-                    inputUsuario.setLength(0);
-                    inputUsuario.append(acumulacionCalculo);
-                    tvInputUsuario.setText(String.valueOf(inputUsuario));
+
                 }
             }
 
-            tvHistorico.setText(historico);
             tvInputUsuario.setText(inputUsuario);
 
         };
 
         View.OnClickListener commonListenerOperadores = view -> {
 
-            if(historico.length() == 0) {
+            if(inputUsuario.length() == 0) {
                 return;
             }
 
-            String operador = (String.valueOf(historico.charAt(historico.length() - 1)));
+            String operador = (String.valueOf(inputUsuario.charAt(inputUsuario.length() - 1)));
 
             if (operador.equals("X") || operador.equals("-") || operador.equals("+") || operador.equals("/")) {
 
                 if (view.getId() == R.id.btSumar) {
-                    historico.setCharAt(historico.length() - 1, '+');
+                    inputUsuario.setCharAt(inputUsuario.length() - 1, '+');
                 } else if (view.getId() == R.id.btRestar) {
-                    historico.setCharAt(historico.length() - 1, '-');
+                    inputUsuario.setCharAt(inputUsuario.length() - 1, '-');
                 } else if (view.getId() == R.id.btMultiplicar) {
-                    historico.setCharAt(historico.length() - 1, 'X');
+                    inputUsuario.setCharAt(inputUsuario.length() - 1, 'X');
                 } else if (view.getId() == R.id.btDividir) {
-                    historico.setCharAt(historico.length() - 1, '/');
+                    inputUsuario.setCharAt(inputUsuario.length() - 1, '/');
                 }
 
             } else {
 
                 if (view.getId() == R.id.btSumar) {
-                    historico.append("+");
+                    inputUsuario.append("+");
                 } else if (view.getId() == R.id.btRestar) {
-                    historico.append("-");
+                    inputUsuario.append("-");
                 } else if (view.getId() == R.id.btMultiplicar) {
-                    historico.append("X");
+                    inputUsuario.append("X");
                 } else if (view.getId() == R.id.btDividir) {
-                    historico.append("/");
+                    inputUsuario.append("/");
                 }
             }
-            inputACalcular1 = Double.parseDouble(tvInputUsuario.getText().toString());
-            tvHistorico.setText(historico);
+
+            if (acumulacionCalculo == 0) {
+                acumulacionCalculo = Double.parseDouble(inputUsuario.deleteCharAt(inputUsuario.length()-1).toString());
+            }
+            inputACalcular = Double.parseDouble(inputUsuario.deleteCharAt(inputUsuario.length()-1).toString());
+            isNewNumber = true;
+
         };
 
         final Button[] arrayBotonesNumero = {
@@ -172,22 +158,15 @@ public class CalculadoraActivity extends AppCompatActivity {
         }
 
         btC.setOnClickListener(view -> {
-            historico.delete(0, historico.length());
-            historico.append("0");
-            tvHistorico.setText(historico);
+            inputUsuario.setLength(0);
+            inputUsuario.append("0");
             acumulacionCalculo = 0;
-            inputUsuario.delete(0, inputUsuario.length());
-            tvInputUsuario.setText("0");
+            tvInputUsuario.setText(inputUsuario);
         });
 
         btBorrar.setOnClickListener(view -> {
-            if(historico.length() > 0) {
-                historico.deleteCharAt(historico.length()-1);
-                tvHistorico.setText(historico);
-            }
-
-            if(historico.length() == 0){
-                tvHistorico.setText("0");
+            if(inputUsuario.length() > 0) {
+                inputUsuario.deleteCharAt(inputUsuario.length()-1);
             }
 
             if(inputUsuario.length() > 0){
@@ -199,12 +178,10 @@ public class CalculadoraActivity extends AppCompatActivity {
                 tvInputUsuario.setText("0");
             }
 
-
-
         });
 
         btResultado.setOnClickListener(view -> {
-            String s = historico.toString();
+            String s = inputUsuario.toString();
             char operador = s.charAt(s.length() - 2);
         });
 
