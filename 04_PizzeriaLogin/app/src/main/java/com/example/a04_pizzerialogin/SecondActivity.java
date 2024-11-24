@@ -67,7 +67,6 @@ public class SecondActivity extends AppCompatActivity {
         tvUserAddress = findViewById(R.id.txVwDireccionUsuario);
 
         // Set User Info
-        assert user != null;
         tvUsername.setText(user.getNombre());
         tvUserAddress.setText(user.getDireccion());
 

@@ -6,22 +6,34 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a04_pizzerialogin.modelo.entidad.Usuario;
 import com.example.a04_pizzerialogin.modelo.negocio.GestorUsuario;
 import com.example.a04_pizzerialogin.modelo.persistencia.DaoUsuario;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String K_USER = "usuario";
-
+    public final static String K_USER = "USUARIO";
     private final String MENSAJE_ALERTA = "MENSAJE_ALERTA";
+
+    Usuario user;
+    GestorUsuario gu;
+
     private String mensajeAlerta;
+
+    EditText edText1;
+    EditText edText2;
+    Button btLogin;
+    Button btSignUp;
+    TextView tvAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText edText1 = findViewById(R.id.edText1);
-        EditText edText2 = findViewById(R.id.edText2);
-        Button bt1 = findViewById(R.id.bt1);
-        TextView tvAlert = findViewById(R.id.tvAlerta);
+        initViews();
 
         /*
         * Si savedInstanceState != null significa que se ha guardado info en el Bundle outState
@@ -49,33 +58,60 @@ public class MainActivity extends AppCompatActivity {
             tvAlert.setText(mensajeAlerta);
         }
 
-        bt1.setOnClickListener(view -> {
+        ActivityResultLauncher<Intent> ar = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == SignUpActivity.OK) {
+                        Intent intent = result.getData();
+                        user = (Usuario) intent.getSerializableExtra(K_USER);
+                        edText1.setText(user.getNombre());
+                        edText2.setText(user.getPass());
+                    } else {
+                        Toast.makeText(this, "Ha ocurrido un error, vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-            GestorUsuario gu = new GestorUsuario();
+        setBtLogInListener();
+        setBtSignUpListener(ar);
+    }
 
-            Usuario us = new Usuario();
-            us.setNombre(edText1.getText().toString());
-            us.setPass(edText2.getText().toString());
-
-            int resultado = gu.validarUsuario(us);
-
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-
-            switch (resultado) {
-                case 0:
-                    mensajeAlerta = "El usuario no existe";
-                    tvAlert.setText(mensajeAlerta);
-                    break;
-                case 1:
-                    mensajeAlerta = "Usuario y/o contraseña incorrectos";
-                    tvAlert.setText(mensajeAlerta);
-                    break;
-                case 2:
-                    intent.putExtra(K_USER, gu.getByName(us.getNombre()));
-                    startActivity(intent);
-                    break;
-            }
+    private void setBtLogInListener() {
+        btLogin.setOnClickListener(view -> {
+            validarLogin();
         });
+    }
+
+    private void setBtSignUpListener(ActivityResultLauncher<Intent> ar) {
+        btSignUp.setOnClickListener(view -> {
+            Intent intent = new Intent(this,SignUpActivity.class);
+            ar.launch(intent);
+        });
+    }
+
+    private void validarLogin() {
+        gu = new GestorUsuario();
+
+        user = new Usuario();
+        user.setNombre(edText1.getText().toString());
+        user.setPass(edText2.getText().toString());
+
+        int resultado = gu.validarUsuario(user);
+
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+
+        switch (resultado) {
+            case 0:
+                mensajeAlerta = "El usuario no existe";
+                tvAlert.setText(mensajeAlerta);
+                break;
+            case 1:
+                mensajeAlerta = "Usuario y/o contraseña incorrectos";
+                tvAlert.setText(mensajeAlerta);
+                break;
+            case 2:
+                intent.putExtra(K_USER, gu.getByName(user.getNombre()));
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -84,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("MainActivity", "onSaveInstanceState()");
         outState.putString("MENSAJE_ALERTA", mensajeAlerta);
+    }
+
+    private void initViews() {
+        edText1 = findViewById(R.id.edText1);
+        edText2 = findViewById(R.id.edText2);
+        btLogin = findViewById(R.id.bt1);
+        btSignUp = findViewById(R.id.btSignUp);
+        tvAlert = findViewById(R.id.tvAlerta);
     }
 
     /*

@@ -17,6 +17,17 @@ public class DaoUsuario {
         lista.add(u3);
     }
 
+    public boolean addUser(Usuario u) {
+
+        int tamanoInicial = lista.size();
+        lista.add(u);
+        int tamanoFinal = lista.size();
+
+        if (tamanoFinal > tamanoInicial) {
+            return true;
+        } else return false;
+    }
+
     public Usuario getByName(String nombre) {
 
         Usuario u = null;

@@ -7,6 +7,8 @@ import com.example.a04_pizzerialogin.modelo.persistencia.DaoUsuario;
 
 public class GestorUsuario {
 
+    DaoUsuario dao;
+
     /**
      * Método que valida un usuario pasado por parámetro para comprobar, primero, si existe en la persistencia.
      * En caso de que exista, se verifica que su contraseña coincida con la almacenada en persistencia.
@@ -17,7 +19,7 @@ public class GestorUsuario {
      */
     public int validarUsuario(Usuario us) {
 
-        DaoUsuario dao = new DaoUsuario();
+        dao = new DaoUsuario();
 
 //        if (us.equals(dao.getByName(us.getNombre()))){
 //            // El método equals está sobreescrito para que de true si nombre y pass coinciden
@@ -35,9 +37,14 @@ public class GestorUsuario {
         return 0; // == Null -> No existe
     }
 
+    public boolean addUser(Usuario u) {
+        dao = new DaoUsuario();
+        return dao.addUser(u);
+    }
+
     public Usuario getByName(String nombre) {
-        DaoUsuario dao = new DaoUsuario();
-        return dao.getByName(nombre);
+       dao = new DaoUsuario();
+       return dao.getByName(nombre);
     }
 
     public void addPizzaUsuario(Usuario us, Pizza pz) {

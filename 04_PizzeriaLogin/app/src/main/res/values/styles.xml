@@ -3,5 +3,11 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Configura aquí otras propiedades de estilo global -->
         <item name="android:fontFamily">@font/lato</item>
+        <item name="buttonStyle">@style/BorderButtonStyle</item>
+    </style>
+    <style name="BorderButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_border</item>
+        <item name="android:fontFamily">@font/lato</item> <!-- Mantén la fuente consistente -->
+        <item name="android:textColor">@color/white</item> <!-- Ajusta el color del texto si es necesario -->
     </style>
 </resources>
