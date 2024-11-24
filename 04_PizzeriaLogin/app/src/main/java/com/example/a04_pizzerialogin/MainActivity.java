@@ -18,8 +18,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public final static String K_USERNAME = "nombre";
-//    public final static String K_PASSWORD = "pass";
     public final static String K_USER = "usuario";
 
     private final String MENSAJE_ALERTA = "MENSAJE_ALERTA";
@@ -37,20 +35,19 @@ public class MainActivity extends AppCompatActivity {
         Button bt1 = findViewById(R.id.bt1);
         TextView tvAlert = findViewById(R.id.tvAlerta);
 
+        /*
+        * Si savedInstanceState != null significa que se ha guardado info en el Bundle outState
+        * desde el método onSaveInstanceState.
+        * La información almacenada solo se guarda una vez entre paso de activities, por lo que
+        * si queremos persistir la información más de una vez, tenemos que almacenar esa info.
+        * En este caso almacenamos la información en la varibale mensajeAlerta y luego utilizamos
+        * dicha variable para ponerle el texto al TextView tvAlert.
+        */
 
         if (savedInstanceState != null) {
             mensajeAlerta = savedInstanceState.getString(MENSAJE_ALERTA);
             tvAlert.setText(mensajeAlerta);
         }
-
-        /* bt1.setOnClickListener(v -> {
-            String nombre = edText1.getText().toString();
-            String pass = edText2.getText().toString();
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-            intent.putExtra(K_USERNAME, nombre);
-            intent.putExtra(K_PASSWORD, pass);
-            startActivity(intent);
-        });*/
 
         bt1.setOnClickListener(view -> {
 
@@ -89,43 +86,51 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("MENSAJE_ALERTA", mensajeAlerta);
     }
 
-//    private void showAlert2() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Error");
-//        builder.setMessage("Usuario y/o contraseña incorrectos");
-//
-//        // Botón OK
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Código que se ejecuta al hacer clic en OK
-//                dialog.dismiss();  // Cerrar la alerta
-//            }
-//        });
-//
-//        // Mostrar la alerta
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
+    /*
+
+    * Esta parte del código sirve para mostrar el mensaje de error en una ventana emergente.
+    * Se ha comentado esta parte para que se muestre el mensaje en un TextView directamente, que
+    * se mantiene en el outState para ser recuperado en caso de que se ejecute el método onCreate
+    * de nuevo, por ejemplo, al rotar la pantalla del dispositivo.
+
+    private void showAlert2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error");
+        builder.setMessage("Usuario y/o contraseña incorrectos");
+
+        // Botón OK
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Código que se ejecuta al hacer clic en OK
+                dialog.dismiss();  // Cerrar la alerta
+            }
+        });
+
+        // Mostrar la alerta
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 
-//    private void showAlert() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Error");
-//        builder.setMessage("El usuario no existe");
-//
-//        // Botón OK
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Código que se ejecuta al hacer clic en OK
-//                dialog.dismiss();  // Cerrar la alerta
-//            }
-//        });
-//
-//        // Mostrar la alerta
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error");
+        builder.setMessage("El usuario no existe");
 
+        // Botón OK
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Código que se ejecuta al hacer clic en OK
+                dialog.dismiss();  // Cerrar la alerta
+            }
+        });
+
+        // Mostrar la alerta
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    */
 }
