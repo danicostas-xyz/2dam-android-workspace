@@ -66,8 +66,7 @@ public class EditGameActivity extends AppCompatActivity {
     }
 
     private void guardar (Videojuego vj){
-        listaVj.remove(vj.getId());
-        listaVj.set(vj.getId(),vj);
+        listaVj.set((vj.getId() - 1),vj);
         ListaVideojuegosSingleton.getInstance().actualizarLista(listaVj);
         finish();
     }
