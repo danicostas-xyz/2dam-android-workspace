@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -37,18 +38,52 @@ public class ColorSelectionActivity extends AppCompatActivity {
                 updateColor();
             }
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
         });
 
+        seekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColor();
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
+        });
+
+        seekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColor();
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                updateColor();
+            }
+        });
 
         btGuardar.setOnClickListener(view -> {
             Intent data = new Intent();
+            String hexColor = String.format("#%06X", (0xFFFFFF & color));
+             data.putExtra("Color", hexColor);
+             setResult(OK, data);
+             finish();
 
-            data.putExtra("Color", String.valueOf(color));
-            setResult(OK, data);
-            finish();
         });
     }
 

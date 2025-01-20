@@ -87,7 +87,8 @@ public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPe
            vj.setCompania(holder.compania.getText().toString());
            Drawable background = holder.ly.getBackground();
            int backgroundColor = ((ColorDrawable) background).getColor();
-           vj.setColor(String.valueOf("#E33333"));
+           String backgroundHEX =  String.format("#%08X", backgroundColor);
+           vj.setColor(String.valueOf(backgroundHEX));
            intent.putExtra("VideoJuego", vj);
            intent.putExtra("Activity", 1);
            Bundle b = new Bundle();

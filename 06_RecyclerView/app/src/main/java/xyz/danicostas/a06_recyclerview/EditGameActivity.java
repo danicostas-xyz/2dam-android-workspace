@@ -31,7 +31,7 @@ public class EditGameActivity extends AppCompatActivity {
     private Button btGuardar;
     private Button btCancelar;
     private Button btEditarColor;
-    int colorForResult;
+    String colorForResult;
 
     private List<Videojuego> listaVj = ListaVideojuegosSingleton.getInstance().getListaVideojuegos();
     private Intent intent;
@@ -48,8 +48,9 @@ public class EditGameActivity extends AppCompatActivity {
         idJuego.setText(String.valueOf(vj.getId()));
         String color = vj.getColor();
         int color2 = color != null ? Color.parseColor(color) : Color.parseColor("#FFFFFF");
-        if(colorForResult != 0) {
-            ly.setBackgroundColor(colorForResult);
+        if (color != null) {ly.setBackgroundColor(color2);};
+        if(colorForResult != null) {
+            ly.setBackgroundColor(Integer.parseInt(colorForResult));
         }
 
 
@@ -72,7 +73,7 @@ public class EditGameActivity extends AppCompatActivity {
                         result -> {
                             if (result.getResultCode() == ColorSelectionActivity.OK) {
                                 Intent intent = result.getData();
-                                colorForResult = (Integer.parseInt(intent.getStringExtra("Color")));
+                                colorForResult = intent.getStringExtra("Color");
 
                             } else {
                                 Toast.makeText(this, "Edición de color cancelada", Toast.LENGTH_SHORT).show();
