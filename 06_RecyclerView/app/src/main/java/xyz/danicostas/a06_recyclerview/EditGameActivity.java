@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,16 +33,18 @@ public class EditGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_game);
         setViews();
         intent = getIntent();
-        nombreJuego.setText(intent.getStringExtra("NombreJuego"));
-        companiaJuego.setText(intent.getStringExtra("CompaniaJuego"));
-        idJuego.setText(intent.getStringExtra("IDJuego"));
+        Videojuego vj = (Videojuego) intent.getSerializableExtra("VideoJuego");
+        nombreJuego.setText(vj.getNombre());
+        companiaJuego.setText(vj.getCompania());
+        idJuego.setText(String.valueOf(vj.getId()));
+
         btGuardar.setOnClickListener(view -> {
-            Videojuego vj = new Videojuego();
-            vj.setId(Integer.parseInt(idJuego.getText().toString()));
-            vj.setNombre(edNuevoNombre.getText().toString());
-            vj.setCompania(edNuevaCompania.getText().toString());
-            guardar(vj);
-            Log.i("TAG", "onCreate: " + vj.getId() + vj.getNombre() + vj.getCompania());
+            Videojuego vjboton = new Videojuego();
+            vjboton.setId(Integer.parseInt(idJuego.getText().toString()));
+            vjboton.setNombre(edNuevoNombre.getText().toString());
+            vjboton.setCompania(edNuevaCompania.getText().toString());
+            guardar(vjboton, intent.getIntExtra("Activity", 90));
+            Log.i("TAG", "onCreate: " + vjboton.getId() + vjboton.getNombre() + vjboton.getCompania());
         });
 
         btCancelar.setOnClickListener(view -> {
@@ -65,14 +68,20 @@ public class EditGameActivity extends AppCompatActivity {
         finish();
     }
 
-    private void guardar (Videojuego vj){
-        listaVj.set((vj.getId() - 1),vj);
-        ListaVideojuegosSingleton.getInstance().actualizarLista(listaVj);
+    private void guardar (Videojuego vj, int activity){
+
+        if (activity == 0) {
+            listaVj.add(vj);
+            ListaVideojuegosSingleton.getInstance().actualizarLista(listaVj);
+        }
+
+        if (activity == 1) {
+            listaVj.set((vj.getId() - 1),vj);
+            ListaVideojuegosSingleton.getInstance().actualizarLista(listaVj);
+        }
+
         finish();
     }
-
-
-
 }
 
 

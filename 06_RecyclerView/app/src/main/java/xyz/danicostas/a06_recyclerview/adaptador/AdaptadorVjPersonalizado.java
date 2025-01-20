@@ -23,12 +23,12 @@ import xyz.danicostas.a06_recyclerview.R;
 import xyz.danicostas.a06_recyclerview.entidad.Videojuego;
 import xyz.danicostas.a06_recyclerview.singleton.ListaVideojuegosSingleton;
 
-public class AdaptadorVideojuegoPersonalizado extends RecyclerView.Adapter<AdaptadorVideojuegoPersonalizado.ViewHolder> {
+public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPersonalizado.ViewHolder> {
 
    private List<Videojuego> listaVideojuegos;
    private Context context;
 
-   public AdaptadorVideojuegoPersonalizado(List<Videojuego> listaVideojuegos, Context context) {
+   public AdaptadorVjPersonalizado(List<Videojuego> listaVideojuegos, Context context) {
        this.listaVideojuegos = listaVideojuegos;
        this.context = context;
    }
@@ -72,9 +72,12 @@ public class AdaptadorVideojuegoPersonalizado extends RecyclerView.Adapter<Adapt
 
        holder.botonEditar.setOnClickListener(view -> {
            Intent intent = new Intent(context, EditGameActivity.class);
-           intent.putExtra("NombreJuego", holder.nombre.getText());
-           intent.putExtra("CompaniaJuego", holder.compania.getText());
-           intent.putExtra("IDJuego", holder.id.getText());
+           Videojuego vj = new Videojuego();
+           vj.setId(Integer.parseInt(holder.id.getText().toString()));
+           vj.setNombre(holder.nombre.getText().toString());
+           vj.setCompania(holder.compania.getText().toString());
+           intent.putExtra("VideoJuego", vj);
+           intent.putExtra("Activity", 1);
            Bundle b = new Bundle();
            startActivity(context, intent, b);
            notifyDataSetChanged();

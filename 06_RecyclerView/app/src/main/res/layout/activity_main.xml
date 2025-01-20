@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -11,9 +10,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recicler View Dos Items"
-        android:textSize="24sp"
+        android:text="Lista de Videojuegos"
         android:textColor="@color/design_default_color_primary"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -22,24 +21,22 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rViewUsuario"
-        android:layout_width="355dp"
-        android:layout_height="337dp"
+        android:layout_width="match_parent"
+        android:layout_height="532dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.446" />
 
     <Button
-        android:id="@+id/segunda"
-        android:layout_width="264dp"
-        android:layout_height="48dp"
-        android:text="Ir a detalle"
+        android:id="@+id/btAddVj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="32dp"
+        android:text="Añadir"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rViewUsuario"
-        app:layout_constraintVertical_bias="0.754" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

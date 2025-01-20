@@ -1,6 +1,8 @@
 package xyz.danicostas.a06_recyclerview.entidad;
 
-public class Videojuego {
+import java.io.Serializable;
+
+public class Videojuego implements Serializable {
     private int id;
     private String nombre;
     private String compania;
