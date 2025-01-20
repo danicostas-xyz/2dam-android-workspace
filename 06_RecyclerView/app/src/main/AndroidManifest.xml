@@ -13,6 +13,9 @@
         android:theme="@style/Theme._06_RecyclerView"
         tools:targetApi="31">
         <activity
+            android:name=".ColorSelectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditGameActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

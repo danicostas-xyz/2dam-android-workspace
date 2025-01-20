@@ -43,6 +43,7 @@ public class ListaVideojuegosSingleton {
         videojuego.setId(contador++);
         videojuego.setNombre("Fifa 2005");
         videojuego.setCompania("EA Sports");
+        videojuego.setColor("#7DE2D1");
 
         listaVideojuegos.add(videojuego);
 
@@ -50,6 +51,7 @@ public class ListaVideojuegosSingleton {
         videojuego.setId(contador++);
         videojuego.setNombre("Doom Eternal");
         videojuego.setCompania("Bethesda");
+        videojuego.setColor("#EC9192");
 
         listaVideojuegos.add(videojuego);
 
@@ -57,6 +59,7 @@ public class ListaVideojuegosSingleton {
         videojuego.setId(contador++);
         videojuego.setNombre("Fortnite");
         videojuego.setCompania("Epic Games");
+        videojuego.setColor("#9FB7B9");
 
         listaVideojuegos.add(videojuego);
 
@@ -64,6 +67,7 @@ public class ListaVideojuegosSingleton {
         videojuego.setId(contador++);
         videojuego.setNombre("Red Dead Redemption 2");
         videojuego.setCompania("Rockstar");
+        videojuego.setColor("#F7FF68");
 
         listaVideojuegos.add(videojuego);
 
@@ -71,6 +75,7 @@ public class ListaVideojuegosSingleton {
         videojuego.setId(contador++);
         videojuego.setNombre("Death Stranding");
         videojuego.setCompania("Kojima Productions");
+        videojuego.setColor("#BCEBCB");
 
         listaVideojuegos.add(videojuego);
 

@@ -6,6 +6,15 @@ public class Videojuego implements Serializable {
     private int id;
     private String nombre;
     private String compania;
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public int getId() {
         return id;
@@ -40,6 +49,8 @@ public class Videojuego implements Serializable {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", compania='" + compania + '\'' +
+                ", color='" + color + '\'' +
                 '}';
     }
+
 }

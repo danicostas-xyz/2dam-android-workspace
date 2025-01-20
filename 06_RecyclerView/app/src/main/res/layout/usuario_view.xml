@@ -14,33 +14,34 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="6dp"
-        android:gravity="center">
+        android:padding="6dp">
 
         <TextView
             android:id="@+id/idJuego"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="24sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID" />
+            android:text="ID"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/nombreVj"
-            android:textColor="#9C27B0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="NOMBRE" />
+            android:text="NOMBRE"
+            android:textColor="#9C27B0"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/companiaVj"
-            android:textColor="#9C27B0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="EDAD"/>
+            android:text="EDAD"
+            android:textColor="#9C27B0"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,14 +63,13 @@
             <Button
                 android:id="@+id/btEliminar"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:textColor="#673AB7"
-                android:textSize="16sp"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="1dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
                 android:text="Eliminar"
-                />
+                android:textColor="#673AB7"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>

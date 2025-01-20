@@ -4,11 +4,15 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPe
    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+       private LinearLayout ly;
        private TextView id;
        private TextView nombre;
        private TextView compania;
@@ -45,6 +50,7 @@ public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPe
             id = v.findViewById(R.id.idJuego);
             nombre = v.findViewById(R.id.nombreVj);
             compania = v.findViewById(R.id.companiaVj);
+            ly = v.findViewById(R.id.linearLayout);
 
             botonEditar = v.findViewById(R.id.btEditar);
             botonEliminar = v.findViewById(R.id.btEliminar);
@@ -69,6 +75,9 @@ public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPe
        holder.nombre.setText(listaVideojuegos.get(position).getNombre());
        String sCompania = String.valueOf(listaVideojuegos.get(position).getCompania());
        holder.compania.setText(sCompania);
+       String color = listaVideojuegos.get(position).getColor();
+       int color2 = color != null ? Color.parseColor(color) : Color.parseColor("#FFFFFF");
+       holder.ly.setBackgroundColor(color2);
 
        holder.botonEditar.setOnClickListener(view -> {
            Intent intent = new Intent(context, EditGameActivity.class);
@@ -76,6 +85,9 @@ public class AdaptadorVjPersonalizado extends RecyclerView.Adapter<AdaptadorVjPe
            vj.setId(Integer.parseInt(holder.id.getText().toString()));
            vj.setNombre(holder.nombre.getText().toString());
            vj.setCompania(holder.compania.getText().toString());
+           Drawable background = holder.ly.getBackground();
+           int backgroundColor = ((ColorDrawable) background).getColor();
+           vj.setColor(String.valueOf("#E33333"));
            intent.putExtra("VideoJuego", vj);
            intent.putExtra("Activity", 1);
            Bundle b = new Bundle();
